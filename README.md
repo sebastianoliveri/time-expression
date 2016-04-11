@@ -1,40 +1,39 @@
 # time-expression
 
-#Modelo para representar expresiones temporales.
 
-El desarrollo fue realizado 100% con TDD y todos los tests se encuentran en time-expression/src/test/java/com/eventspipe.
+#Model to represent time expressions.
 
+The whole development was done applying TDD as the development technique and DDD.
 
-##Ejemplos concretos de expresiones que se pueden crear:
+##Concrete examples of expressions:
 
-###No recurrentes:
+###Non recurring:
 
-- 1) Una fecha concreta: el dia 2 de febrero del 2017 (DateTimeExpression.java)
+- 1) Date expression: February the second, 2017 (DateTimeExpression.java)
 
-###Recurrentes (subclasifican PeriodicTimeExpression.java)
+###Recurring (subclasiffy PeriodicTimeExpression.java)
 
-- 2) Diariamente: cada 2 dias desde el 2 de febrero del 2017 hasta el 30 de marzo del 2017 (DailyTimeExpression.java)
+- 2) Daily: Every 2 days from february the second 2017 to april the fourth 2017  (DailyTimeExpression.java)
 - 3) Semanalmente: Todas las semanas desde la primera semana de abril del 2017 hasta la tercera semana de mayo del 2017 ( 	WeeklyTimeExpression.java)
-- 4) a) Mensualmente: Cada 2 meses el dia 3. (DayOfMonthTimeExpression.java)
-- 4) b) Mensualmente: Todos los meses el tercer viernes de cada mes. (DayOfWeekInWeekOfMonthTimeExpression.java)
-- 5) Anualmente: Todos los años el dia 7 de agosto. (YearlyTimeExpression.java)
+- 3) Weekly: Every week from april 2017 the first week until july 2017 the third week (WeeklyTimeExpression.java)
+- 4) a) Monthly: Monthly every 2 months the third day. (DayOfMonthTimeExpression.java)
+- 4) b) Mensualmente: Every month the third wednesday from january 2017 to april 2018. (DayOfWeekInWeekOfMonthTimeExpression.java)
+- 5) Yearly: Every year on august the third day from 2016 to 2025. (YearlyTimeExpression.java)
 
-###Compuestas:
+###Composed:
 
-- 6) Permite componer combinaciones de las anteriores mencionadas (1 Y 3 Y...) (BinaryTimeExpression.java)
+- 6) Allows to combine any of the mentioned before (1 and 3 and...) (BinaryTimeExpression.java)
 
 
-Entre parentesis describo la clase que modela cada una de esas expresiones.
+The root class of the hierarchy is TimeExpression. This class serves as a factory for creating instances of its subclasses, that is building an expression. 
+A time expression understands among others the following messages:
 
-La clase raiz de la jerarquia es "TimeExpression.java". Esta clase actua como factory para crear desde el "exterior" instancias de sus diferentes implementaciones, es decir, de alguna expresion.
-Una TimeExpression sabe responder dos mensajes principales que son
+-  boolean evaluate(aDateTime) > Returns whether is satisfies, that is the same to say if happens in the given date time.
+-  iterator() -> returns an iterator that calculcates all the date times the time expression occurrs.
+-  fromJsonString(aString) -> builds an instance from its string representation
+-  asJsonString() -> serializes the expression as json string
 
--  boolean evaluate(aDateTime) > Retorna si satisface, es decir, ocurre en una fecha-hora-minutos.
--  iterator() -> retorna un iterador que calcula todas las fechas-hora-dia que ocurre la expression.
--  fromJsonString(aString) -> construye una instancia a partir de su representacion json
--  asJsonString() -> serializa la expresion en un json
 
-Todos estos mensajes principales y tambien otros se resuelven polimorficamente en esta jerarquia de clases.
 
 
 
